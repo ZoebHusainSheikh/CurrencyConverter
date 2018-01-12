@@ -25,7 +25,6 @@ class ConverterPresenter: ConverterPresentationLogic
   
   func presentExchangeRate(response: Converter.ExchangeRate.Response)
   {
-    let viewModel = Converter.ExchangeRate.ViewModel()
-    viewController?.displayExchangeRate(viewModel: viewModel)
+    viewController?.displayExchangeRate(response: response)
   }
 }

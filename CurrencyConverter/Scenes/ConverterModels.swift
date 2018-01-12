@@ -162,7 +162,7 @@ enum Converter
         public var nOK: Float?
         public var iNR: Float?
         public var iLS: Float?
-        public var iDR: Int?
+        public var iDR: Float?
         public var cHF: Float?
         public var tHB: Float?
         public var cNY: Float?

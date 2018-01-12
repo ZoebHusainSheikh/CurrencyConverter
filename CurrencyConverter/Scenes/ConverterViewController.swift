@@ -14,19 +14,19 @@ import UIKit
 
 protocol ConverterDisplayLogic: class
 {
-  func displayExchangeRate(viewModel: Converter.ExchangeRate.ViewModel)
+  func displayExchangeRate(response: Converter.ExchangeRate.Response)
 }
 
 class ConverterViewController: UIViewController, ConverterDisplayLogic
 {
   var interactor: ConverterBusinessLogic?
     
-    var secondaryCurrencyBaseValue: Float = 1.1 {
-        didSet {
-            secondaryCurrencyValueLabel.text = "\(secondaryCurrencyBaseValue)"
-            refreshSecondaryCurrencyResultant()
-        }
-    }
+    var secondaryCurrencyBaseValue: Float = 0
+    
+    var currencyData: Converter.ExchangeRate.Response?
+    var selectedRatesIndex: Int = -1
+    var currencies = Array<String>()
+    var currenciesRate = Array<Float>()
 
   // MARK: Object lifecycle
   
@@ -59,10 +59,13 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
   override func viewDidLoad()
   {
     super.viewDidLoad()
+    
+    initialSetup()
+    
+    //API
     doExchangeRate()
   }
     
-  //@IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var primaryCurrencyShortNameLabel: UILabel!
     @IBOutlet weak var secondaryCurrencyValueLabel: UILabel!
     @IBOutlet weak var secondaryCurrencyShortNameLabel: UILabel!
@@ -76,6 +79,21 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
     @IBOutlet weak var currencyRatesComparisionYearLabel: UILabel!
     
     @IBOutlet weak var datePickerContainerVisualBlurView: UIView!
+    @IBOutlet weak var pickerView: UIPickerView!
+  
+    func doExchangeRate(urlPath: String = "/latest")
+  {
+    let request = Converter.ExchangeRate.Request(urlPath: urlPath)
+    interactor?.doExchangeRate(request: request)
+  }
+  
+    func displayExchangeRate(response: Converter.ExchangeRate.Response)
+    {
+        currencyData = response
+        refreshData()
+    }
+    
+    //MARK: - IBAction methods
     
     @IBAction func inputButtonTapped(button: UIButton) {
         doActionFor(inputValue: button.tag)
@@ -86,21 +104,21 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
     }
     
     @IBAction func secondaryCurrencyChangeTapped(button: UIButton) {
-        
+        pickerView.reloadAllComponents()
+        showDatePickerView()
     }
-  
-    func doExchangeRate(urlPath: String = "/latest")
-  {
-    let request = Converter.ExchangeRate.Request(urlPath: urlPath)
-    interactor?.doExchangeRate(request: request)
-  }
-  
-  func displayExchangeRate(viewModel: Converter.ExchangeRate.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
-  }
+    
+    @IBAction func applyButtonTapped() {
+        hideDatePickerView()
+        refreshData()
+    }
     
     //MARK: - Private methods
+    
+    private func initialSetup() {
+        hideDatePickerView()
+        self.view.bringSubview(toFront: datePickerContainerVisualBlurView)
+    }
     
     private func doActionFor(inputValue: Int) {
         switch inputValue {
@@ -158,5 +176,47 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
             self.datePickerContainerVisualBlurView.isHidden = true
         }
     }
+    
+    func refreshData() {
+        if currencyData == nil {
+            return
+        }
+        
+        currencies = Array(currencyData!.rates!.dictionaryRepresentation().keys)
+        currenciesRate = Array(currencyData!.rates!.dictionaryRepresentation().values) as! [Float]
+        
+        let index = pickerView.selectedRow(inComponent: 0)
+        secondaryCurrencyBaseValue = currenciesRate[index]
+        
+        primaryCurrencyNameLabel.text = currencyData?.base
+        primaryCurrencyShortNameLabel.text = currencyData?.base
+        
+        secondaryCurrencyNameLabel.text = currencies[index]
+        secondaryCurrencyShortNameLabel.text = currencies[index]
+        
+        currencyRatesComparisionYearLabel.text = currencyData?.date
+        secondaryCurrencyValueLabel.text = "\(secondaryCurrencyBaseValue)"
+        
+        refreshSecondaryCurrencyResultant()
+        
+        pickerView.reloadAllComponents()
+    }
 
+}
+
+extension ConverterViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return currencies.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return "\(currencies[row]) - \(currenciesRate[row])"
+        
+    }
+    
 }
