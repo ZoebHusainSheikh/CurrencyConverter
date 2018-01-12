@@ -20,7 +20,6 @@ protocol ConverterDisplayLogic: class
 class ConverterViewController: UIViewController, ConverterDisplayLogic
 {
   var interactor: ConverterBusinessLogic?
-  var router: (NSObjectProtocol & ConverterRoutingLogic & ConverterDataPassing)?
     
     var secondaryCurrencyBaseValue: Float = 1.1 {
         didSet {
@@ -50,25 +49,9 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
     let viewController = self
     let interactor = ConverterInteractor()
     let presenter = ConverterPresenter()
-    let router = ConverterRouter()
     viewController.interactor = interactor
-    viewController.router = router
     interactor.presenter = presenter
     presenter.viewController = viewController
-    router.viewController = viewController
-    router.dataStore = interactor
-  }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
-    }
   }
   
   // MARK: View lifecycle
@@ -78,9 +61,7 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
     super.viewDidLoad()
     doSomething()
   }
-  
-  // MARK: Do something
-  
+    
   //@IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var primaryCurrencyShortNameLabel: UILabel!
     @IBOutlet weak var secondaryCurrencyValueLabel: UILabel!
