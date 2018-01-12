@@ -17,6 +17,10 @@
 		18DF1AB82008823C0061835C /* ConverterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF1AB22008823C0061835C /* ConverterViewController.swift */; };
 		18DF1AB92008823C0061835C /* ConverterWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF1AB32008823C0061835C /* ConverterWorker.swift */; };
 		459098F3C5A5B7B3E8DAA779 /* Pods_CurrencyConverter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD48ECA04CDAED4675E6100 /* Pods_CurrencyConverter.framework */; };
+		F17DBC062008DB8500161F1A /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17DBC022008DB8400161F1A /* RequestManager.swift */; };
+		F17DBC072008DB8500161F1A /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17DBC032008DB8400161F1A /* BaseRequest.swift */; };
+		F17DBC082008DB8500161F1A /* RealAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17DBC042008DB8400161F1A /* RealAPI.swift */; };
+		F17DBC092008DB8500161F1A /* NetworkHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17DBC052008DB8400161F1A /* NetworkHttpClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +38,10 @@
 		4D3521677444EB16D11557D6 /* Pods-CurrencyConverter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyConverter.release.xcconfig"; path = "Pods/Target Support Files/Pods-CurrencyConverter/Pods-CurrencyConverter.release.xcconfig"; sourceTree = "<group>"; };
 		93194F7E01C634786FB788DE /* Pods-CurrencyConverter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyConverter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CurrencyConverter/Pods-CurrencyConverter.debug.xcconfig"; sourceTree = "<group>"; };
 		ACD48ECA04CDAED4675E6100 /* Pods_CurrencyConverter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CurrencyConverter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F17DBC022008DB8400161F1A /* RequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
+		F17DBC032008DB8400161F1A /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
+		F17DBC042008DB8400161F1A /* RealAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealAPI.swift; sourceTree = "<group>"; };
+		F17DBC052008DB8400161F1A /* NetworkHttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHttpClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +79,7 @@
 			children = (
 				18DF1A9B200881960061835C /* AppDelegate.swift */,
 				18DF1AAD200881AF0061835C /* Scenes */,
+				F17DBC012008DB8400161F1A /* NetworkManager */,
 				18DF1A9F200881960061835C /* Main.storyboard */,
 				18DF1AA2200881960061835C /* Assets.xcassets */,
 				18DF1AA4200881960061835C /* LaunchScreen.storyboard */,
@@ -106,6 +115,17 @@
 				ACD48ECA04CDAED4675E6100 /* Pods_CurrencyConverter.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F17DBC012008DB8400161F1A /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				F17DBC022008DB8400161F1A /* RequestManager.swift */,
+				F17DBC032008DB8400161F1A /* BaseRequest.swift */,
+				F17DBC042008DB8400161F1A /* RealAPI.swift */,
+				F17DBC052008DB8400161F1A /* NetworkHttpClient.swift */,
+			);
+			path = NetworkManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,12 +257,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F17DBC072008DB8500161F1A /* BaseRequest.swift in Sources */,
+				F17DBC092008DB8500161F1A /* NetworkHttpClient.swift in Sources */,
 				18DF1AB52008823C0061835C /* ConverterModels.swift in Sources */,
 				18DF1AB62008823C0061835C /* ConverterPresenter.swift in Sources */,
 				18DF1AB92008823C0061835C /* ConverterWorker.swift in Sources */,
 				18DF1AB42008823C0061835C /* ConverterInteractor.swift in Sources */,
+				F17DBC062008DB8500161F1A /* RequestManager.swift in Sources */,
 				18DF1A9C200881960061835C /* AppDelegate.swift in Sources */,
 				18DF1AB82008823C0061835C /* ConverterViewController.swift in Sources */,
+				F17DBC082008DB8500161F1A /* RealAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
