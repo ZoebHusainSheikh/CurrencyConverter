@@ -21,6 +21,13 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
 {
   var interactor: ConverterBusinessLogic?
   var router: (NSObjectProtocol & ConverterRoutingLogic & ConverterDataPassing)?
+    
+    var secondaryCurrencyBaseValue: Float = 1.1 {
+        didSet {
+            secondaryCurrencyValueLabel.text = "\(secondaryCurrencyBaseValue)"
+            refreshSecondaryCurrencyResultant()
+        }
+    }
 
   // MARK: Object lifecycle
   
@@ -75,6 +82,29 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
   // MARK: Do something
   
   //@IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var primaryCurrencyShortNameLabel: UILabel!
+    @IBOutlet weak var secondaryCurrencyValueLabel: UILabel!
+    @IBOutlet weak var secondaryCurrencyShortNameLabel: UILabel!
+    
+    @IBOutlet weak var primaryCurrencyValueToConvertLabel: UILabel!
+    @IBOutlet weak var secondaryCurrencyResultantValueLabel: UILabel!
+    
+    @IBOutlet weak var primaryCurrencyNameLabel: UILabel!
+    @IBOutlet weak var secondaryCurrencyNameLabel: UILabel!
+    
+    @IBOutlet weak var currencyRatesComparisionYearLabel: UILabel!
+    
+    @IBAction func inputButtonTapped(button: UIButton) {
+        doActionFor(inputValue: button.tag)
+    }
+    
+    @IBAction func primaryCurrencyChangeTapped(button: UIButton) {
+        
+    }
+    
+    @IBAction func secondaryCurrencyChangeTapped(button: UIButton) {
+        
+    }
   
   func doSomething()
   {
@@ -86,4 +116,45 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
   {
     //nameTextField.text = viewModel.name
   }
+    
+    func doActionFor(inputValue: Int) {
+        switch inputValue {
+        case 0...9:
+            if primaryCurrencyValueToConvertLabel.text == "0" {
+                primaryCurrencyValueToConvertLabel.text = ""
+            }
+            primaryCurrencyValueToConvertLabel.text = "\(primaryCurrencyValueToConvertLabel.text ?? "")\(inputValue)"
+            refreshSecondaryCurrencyResultant()
+        case 10: //Decimal
+            if !((primaryCurrencyValueToConvertLabel.text ?? "").contains(Character("."))) {
+                primaryCurrencyValueToConvertLabel.text = "\(primaryCurrencyValueToConvertLabel.text ?? "")."
+                refreshSecondaryCurrencyResultant()
+            }
+        case 11: //Delete
+            primaryCurrencyValueToConvertLabel.text = "0"
+            refreshSecondaryCurrencyResultant()
+        case 12: //Back
+            if primaryCurrencyValueToConvertLabel.text!.count > 1 {
+                let index: String.Index = (primaryCurrencyValueToConvertLabel.text?.index(String.Index(encodedOffset: 0), offsetBy: primaryCurrencyValueToConvertLabel.text!.count - 1))!
+                let resultantString = primaryCurrencyValueToConvertLabel.text![..<index]
+                primaryCurrencyValueToConvertLabel.text = String(resultantString)
+            } else if primaryCurrencyValueToConvertLabel.text!.count == 1 {
+                primaryCurrencyValueToConvertLabel.text = "0"
+            }
+            refreshSecondaryCurrencyResultant()
+        case 13: //Switch
+            makeChangesForSwitch()
+        default:
+            break
+        }
+    }
+    
+    func refreshSecondaryCurrencyResultant() {
+        secondaryCurrencyResultantValueLabel?.text = String(Float(primaryCurrencyValueToConvertLabel.text ?? "")! * secondaryCurrencyBaseValue)
+    }
+    
+    func makeChangesForSwitch() {
+        
+    }
+
 }
