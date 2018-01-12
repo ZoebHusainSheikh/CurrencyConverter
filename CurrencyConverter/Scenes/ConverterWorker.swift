@@ -14,7 +14,7 @@ import UIKit
 
 class ConverterWorker
 {
-  func doSomeWork()
+  func doExchangeRateWork()
   {
   }
 }

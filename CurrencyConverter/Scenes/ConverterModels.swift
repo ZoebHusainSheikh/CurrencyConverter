@@ -16,7 +16,7 @@ enum Converter
 {
   // MARK: Use cases
   
-  enum Something
+  enum ExchangeRate
   {
     struct Request
     {

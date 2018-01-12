@@ -14,7 +14,7 @@ import UIKit
 
 protocol ConverterDisplayLogic: class
 {
-  func displaySomething(viewModel: Converter.Something.ViewModel)
+  func displayExchangeRate(viewModel: Converter.ExchangeRate.ViewModel)
 }
 
 class ConverterViewController: UIViewController, ConverterDisplayLogic
@@ -59,7 +59,7 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    doSomething()
+    doExchangeRate()
   }
     
   //@IBOutlet weak var nameTextField: UITextField!
@@ -75,6 +75,8 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
     
     @IBOutlet weak var currencyRatesComparisionYearLabel: UILabel!
     
+    @IBOutlet weak var datePickerContainerVisualBlurView: UIView!
+    
     @IBAction func inputButtonTapped(button: UIButton) {
         doActionFor(inputValue: button.tag)
     }
@@ -87,18 +89,20 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
         
     }
   
-  func doSomething()
+  func doExchangeRate()
   {
-    let request = Converter.Something.Request()
-    interactor?.doSomething(request: request)
+    let request = Converter.ExchangeRate.Request()
+    interactor?.doExchangeRate(request: request)
   }
   
-  func displaySomething(viewModel: Converter.Something.ViewModel)
+  func displayExchangeRate(viewModel: Converter.ExchangeRate.ViewModel)
   {
     //nameTextField.text = viewModel.name
   }
     
-    func doActionFor(inputValue: Int) {
+    //MARK: - Private methods
+    
+    private func doActionFor(inputValue: Int) {
         switch inputValue {
         case 0...9:
             if primaryCurrencyValueToConvertLabel.text == "0" {
@@ -130,12 +134,29 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
         }
     }
     
-    func refreshSecondaryCurrencyResultant() {
+    private func refreshSecondaryCurrencyResultant() {
         secondaryCurrencyResultantValueLabel?.text = String(Float(primaryCurrencyValueToConvertLabel.text ?? "")! * secondaryCurrencyBaseValue)
     }
     
-    func makeChangesForSwitch() {
+    private func makeChangesForSwitch() {
         
+    }
+    
+    private func showDatePickerView() {
+        datePickerContainerVisualBlurView.isHidden = false
+        UIView.animate(withDuration: 0.5,
+                       animations: {
+                        self.datePickerContainerVisualBlurView.alpha = 1
+        })
+    }
+    
+    private func hideDatePickerView() {
+        UIView.animate(withDuration: 0.5,
+                       animations: {
+                        self.datePickerContainerVisualBlurView.alpha = 0
+        }) { (completed) in
+            self.datePickerContainerVisualBlurView.isHidden = true
+        }
     }
 
 }

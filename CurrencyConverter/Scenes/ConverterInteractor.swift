@@ -14,7 +14,7 @@ import UIKit
 
 protocol ConverterBusinessLogic
 {
-  func doSomething(request: Converter.Something.Request)
+  func doExchangeRate(request: Converter.ExchangeRate.Request)
 }
 
 protocol ConverterDataStore
@@ -28,14 +28,14 @@ class ConverterInteractor: ConverterBusinessLogic, ConverterDataStore
   var worker: ConverterWorker?
   //var name: String = ""
   
-  // MARK: Do something
+  // MARK: Do ExchangeRate
   
-  func doSomething(request: Converter.Something.Request)
+  func doExchangeRate(request: Converter.ExchangeRate.Request)
   {
     worker = ConverterWorker()
-    worker?.doSomeWork()
+    worker?.doExchangeRateWork()
     
-    let response = Converter.Something.Response()
-    presenter?.presentSomething(response: response)
+    let response = Converter.ExchangeRate.Response()
+    presenter?.presentExchangeRate(response: response)
   }
 }

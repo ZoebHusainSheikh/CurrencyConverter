@@ -14,18 +14,18 @@ import UIKit
 
 protocol ConverterPresentationLogic
 {
-  func presentSomething(response: Converter.Something.Response)
+  func presentExchangeRate(response: Converter.ExchangeRate.Response)
 }
 
 class ConverterPresenter: ConverterPresentationLogic
 {
   weak var viewController: ConverterDisplayLogic?
   
-  // MARK: Do something
+  // MARK: Do ExchangeRate
   
-  func presentSomething(response: Converter.Something.Response)
+  func presentExchangeRate(response: Converter.ExchangeRate.Response)
   {
-    let viewModel = Converter.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+    let viewModel = Converter.ExchangeRate.ViewModel()
+    viewController?.displayExchangeRate(viewModel: viewModel)
   }
 }
