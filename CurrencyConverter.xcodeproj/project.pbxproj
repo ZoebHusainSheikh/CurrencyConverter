@@ -12,6 +12,12 @@
 		18DF1AA1200881960061835C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18DF1A9F200881960061835C /* Main.storyboard */; };
 		18DF1AA3200881960061835C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18DF1AA2200881960061835C /* Assets.xcassets */; };
 		18DF1AA6200881960061835C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18DF1AA4200881960061835C /* LaunchScreen.storyboard */; };
+		18DF1AB42008823C0061835C /* ConverterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF1AAE2008823C0061835C /* ConverterInteractor.swift */; };
+		18DF1AB52008823C0061835C /* ConverterModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF1AAF2008823C0061835C /* ConverterModels.swift */; };
+		18DF1AB62008823C0061835C /* ConverterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF1AB02008823C0061835C /* ConverterPresenter.swift */; };
+		18DF1AB72008823C0061835C /* ConverterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF1AB12008823C0061835C /* ConverterRouter.swift */; };
+		18DF1AB82008823C0061835C /* ConverterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF1AB22008823C0061835C /* ConverterViewController.swift */; };
+		18DF1AB92008823C0061835C /* ConverterWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF1AB32008823C0061835C /* ConverterWorker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +28,12 @@
 		18DF1AA2200881960061835C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18DF1AA5200881960061835C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18DF1AA7200881960061835C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		18DF1AAE2008823C0061835C /* ConverterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterInteractor.swift; sourceTree = "<group>"; };
+		18DF1AAF2008823C0061835C /* ConverterModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterModels.swift; sourceTree = "<group>"; };
+		18DF1AB02008823C0061835C /* ConverterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterPresenter.swift; sourceTree = "<group>"; };
+		18DF1AB12008823C0061835C /* ConverterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterRouter.swift; sourceTree = "<group>"; };
+		18DF1AB22008823C0061835C /* ConverterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterViewController.swift; sourceTree = "<group>"; };
+		18DF1AB32008823C0061835C /* ConverterWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterWorker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				18DF1A9B200881960061835C /* AppDelegate.swift */,
+				18DF1AAD200881AF0061835C /* Scenes */,
 				18DF1A9D200881960061835C /* ViewController.swift */,
 				18DF1A9F200881960061835C /* Main.storyboard */,
 				18DF1AA2200881960061835C /* Assets.xcassets */,
@@ -62,6 +75,19 @@
 				18DF1AA7200881960061835C /* Info.plist */,
 			);
 			path = CurrencyConverter;
+			sourceTree = "<group>";
+		};
+		18DF1AAD200881AF0061835C /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				18DF1AAE2008823C0061835C /* ConverterInteractor.swift */,
+				18DF1AAF2008823C0061835C /* ConverterModels.swift */,
+				18DF1AB02008823C0061835C /* ConverterPresenter.swift */,
+				18DF1AB12008823C0061835C /* ConverterRouter.swift */,
+				18DF1AB22008823C0061835C /* ConverterViewController.swift */,
+				18DF1AB32008823C0061835C /* ConverterWorker.swift */,
+			);
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,8 +162,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18DF1AB52008823C0061835C /* ConverterModels.swift in Sources */,
+				18DF1AB62008823C0061835C /* ConverterPresenter.swift in Sources */,
+				18DF1AB92008823C0061835C /* ConverterWorker.swift in Sources */,
 				18DF1A9E200881960061835C /* ViewController.swift in Sources */,
+				18DF1AB42008823C0061835C /* ConverterInteractor.swift in Sources */,
 				18DF1A9C200881960061835C /* AppDelegate.swift in Sources */,
+				18DF1AB82008823C0061835C /* ConverterViewController.swift in Sources */,
+				18DF1AB72008823C0061835C /* ConverterRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
