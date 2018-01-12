@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import ObjectMapper
 
 enum Converter
 {
@@ -20,8 +21,6 @@ enum Converter
   {
     struct Request
     {
-        static let hasArrayResponse = "HasArrayResponse"
-        
         var urlPath: String
         var requestType: NSInteger
         var fileData: Data
@@ -31,15 +30,14 @@ enum Converter
         var headers: [String: String]?
         var parameters: Dictionary<String, Any>
         
-        override init() {
-            urlPath = ""
+        init(urlPath: String) {
+            self.urlPath = urlPath
             requestType = 0
             fileData = Data()
             dataFilename = ""
             fileName = ""
             mimeType = ""
             parameters = [:]
-            super.init()
         }
         
         public func getParams() -> Dictionary<String, Any> {
@@ -51,11 +49,211 @@ enum Converter
             return String.init(format: "%@%@",client.urlPathSubstring, path)
         }
     }
-    struct Response
-    {
+    struct Response: Mappable {
+        
+        // MARK: Declaration for string constants to be used to decode and also serialize.
+        private struct SerializationKeys {
+            static let base = "base"
+            static let date = "date"
+            static let rates = "rates"
+            static let error = "error"
+        }
+        
+        // MARK: Properties
+        public var base: String?
+        public var date: String?
+        public var rates: Rates?
+        public var error: String?
+        
+        // MARK: ObjectMapper Initializers
+        /// Map a JSON object to this class using ObjectMapper.
+        ///
+        /// - parameter map: A mapping from ObjectMapper.
+        public init?(map: Map){
+            
+        }
+        public init?(message: String){
+            self.error = message
+        }
+        
+        /// Map a JSON object to this class using ObjectMapper.
+        ///
+        /// - parameter map: A mapping from ObjectMapper.
+        public mutating func mapping(map: Map) {
+            base <- map[SerializationKeys.base]
+            date <- map[SerializationKeys.date]
+            rates <- map[SerializationKeys.rates]
+            error <- map[SerializationKeys.error]
+        }
+        
+        /// Generates description of the object in the form of a NSDictionary.
+        ///
+        /// - returns: A Key value pair containing all valid values in the object.
+        public func dictionaryRepresentation() -> [String: Any] {
+            var dictionary: [String: Any] = [:]
+            if let value = base { dictionary[SerializationKeys.base] = value }
+            if let value = date { dictionary[SerializationKeys.date] = value }
+            if let value = rates { dictionary[SerializationKeys.rates] = value.dictionaryRepresentation() }
+            if let value = error { dictionary[SerializationKeys.error] = value }
+            return dictionary
+        }
+        
     }
-    struct ViewModel
-    {
+    struct Rates: Mappable {
+        
+        // MARK: Declaration for string constants to be used to decode and also serialize.
+        private struct SerializationKeys {
+            static let rON = "RON"
+            static let mYR = "MYR"
+            static let cAD = "CAD"
+            static let dKK = "DKK"
+            static let gBP = "GBP"
+            static let pHP = "PHP"
+            static let cZK = "CZK"
+            static let pLN = "PLN"
+            static let rUB = "RUB"
+            static let sGD = "SGD"
+            static let bRL = "BRL"
+            static let jPY = "JPY"
+            static let sEK = "SEK"
+            static let uSD = "USD"
+            static let hRK = "HRK"
+            static let nZD = "NZD"
+            static let hKD = "HKD"
+            static let bGN = "BGN"
+            static let tRY = "TRY"
+            static let mXN = "MXN"
+            static let hUF = "HUF"
+            static let kRW = "KRW"
+            static let nOK = "NOK"
+            static let iNR = "INR"
+            static let iLS = "ILS"
+            static let iDR = "IDR"
+            static let cHF = "CHF"
+            static let tHB = "THB"
+            static let cNY = "CNY"
+            static let zAR = "ZAR"
+            static let aUD = "AUD"
+        }
+        
+        // MARK: Properties
+        public var rON: Float?
+        public var mYR: Float?
+        public var cAD: Float?
+        public var dKK: Float?
+        public var gBP: Float?
+        public var pHP: Float?
+        public var cZK: Float?
+        public var pLN: Float?
+        public var rUB: Float?
+        public var sGD: Float?
+        public var bRL: Float?
+        public var jPY: Float?
+        public var sEK: Float?
+        public var uSD: Float?
+        public var hRK: Float?
+        public var nZD: Float?
+        public var hKD: Float?
+        public var bGN: Float?
+        public var tRY: Float?
+        public var mXN: Float?
+        public var hUF: Float?
+        public var kRW: Float?
+        public var nOK: Float?
+        public var iNR: Float?
+        public var iLS: Float?
+        public var iDR: Int?
+        public var cHF: Float?
+        public var tHB: Float?
+        public var cNY: Float?
+        public var zAR: Float?
+        public var aUD: Float?
+        
+        // MARK: ObjectMapper Initializers
+        /// Map a JSON object to this class using ObjectMapper.
+        ///
+        /// - parameter map: A mapping from ObjectMapper.
+        public init?(map: Map){
+            
+        }
+        
+        /// Map a JSON object to this class using ObjectMapper.
+        ///
+        /// - parameter map: A mapping from ObjectMapper.
+        public mutating func mapping(map: Map) {
+            rON <- map[SerializationKeys.rON]
+            mYR <- map[SerializationKeys.mYR]
+            cAD <- map[SerializationKeys.cAD]
+            dKK <- map[SerializationKeys.dKK]
+            gBP <- map[SerializationKeys.gBP]
+            pHP <- map[SerializationKeys.pHP]
+            cZK <- map[SerializationKeys.cZK]
+            pLN <- map[SerializationKeys.pLN]
+            rUB <- map[SerializationKeys.rUB]
+            sGD <- map[SerializationKeys.sGD]
+            bRL <- map[SerializationKeys.bRL]
+            jPY <- map[SerializationKeys.jPY]
+            sEK <- map[SerializationKeys.sEK]
+            uSD <- map[SerializationKeys.uSD]
+            hRK <- map[SerializationKeys.hRK]
+            nZD <- map[SerializationKeys.nZD]
+            hKD <- map[SerializationKeys.hKD]
+            bGN <- map[SerializationKeys.bGN]
+            tRY <- map[SerializationKeys.tRY]
+            mXN <- map[SerializationKeys.mXN]
+            hUF <- map[SerializationKeys.hUF]
+            kRW <- map[SerializationKeys.kRW]
+            nOK <- map[SerializationKeys.nOK]
+            iNR <- map[SerializationKeys.iNR]
+            iLS <- map[SerializationKeys.iLS]
+            iDR <- map[SerializationKeys.iDR]
+            cHF <- map[SerializationKeys.cHF]
+            tHB <- map[SerializationKeys.tHB]
+            cNY <- map[SerializationKeys.cNY]
+            zAR <- map[SerializationKeys.zAR]
+            aUD <- map[SerializationKeys.aUD]
+        }
+        
+        /// Generates description of the object in the form of a NSDictionary.
+        ///
+        /// - returns: A Key value pair containing all valid values in the object.
+        public func dictionaryRepresentation() -> [String: Any] {
+            var dictionary: [String: Any] = [:]
+            if let value = rON { dictionary[SerializationKeys.rON] = value }
+            if let value = mYR { dictionary[SerializationKeys.mYR] = value }
+            if let value = cAD { dictionary[SerializationKeys.cAD] = value }
+            if let value = dKK { dictionary[SerializationKeys.dKK] = value }
+            if let value = gBP { dictionary[SerializationKeys.gBP] = value }
+            if let value = pHP { dictionary[SerializationKeys.pHP] = value }
+            if let value = cZK { dictionary[SerializationKeys.cZK] = value }
+            if let value = pLN { dictionary[SerializationKeys.pLN] = value }
+            if let value = rUB { dictionary[SerializationKeys.rUB] = value }
+            if let value = sGD { dictionary[SerializationKeys.sGD] = value }
+            if let value = bRL { dictionary[SerializationKeys.bRL] = value }
+            if let value = jPY { dictionary[SerializationKeys.jPY] = value }
+            if let value = sEK { dictionary[SerializationKeys.sEK] = value }
+            if let value = uSD { dictionary[SerializationKeys.uSD] = value }
+            if let value = hRK { dictionary[SerializationKeys.hRK] = value }
+            if let value = nZD { dictionary[SerializationKeys.nZD] = value }
+            if let value = hKD { dictionary[SerializationKeys.hKD] = value }
+            if let value = bGN { dictionary[SerializationKeys.bGN] = value }
+            if let value = tRY { dictionary[SerializationKeys.tRY] = value }
+            if let value = mXN { dictionary[SerializationKeys.mXN] = value }
+            if let value = hUF { dictionary[SerializationKeys.hUF] = value }
+            if let value = kRW { dictionary[SerializationKeys.kRW] = value }
+            if let value = nOK { dictionary[SerializationKeys.nOK] = value }
+            if let value = iNR { dictionary[SerializationKeys.iNR] = value }
+            if let value = iLS { dictionary[SerializationKeys.iLS] = value }
+            if let value = iDR { dictionary[SerializationKeys.iDR] = value }
+            if let value = cHF { dictionary[SerializationKeys.cHF] = value }
+            if let value = tHB { dictionary[SerializationKeys.tHB] = value }
+            if let value = cNY { dictionary[SerializationKeys.cNY] = value }
+            if let value = zAR { dictionary[SerializationKeys.zAR] = value }
+            if let value = aUD { dictionary[SerializationKeys.aUD] = value }
+            return dictionary
+        }
+        
     }
+    
   }
 }

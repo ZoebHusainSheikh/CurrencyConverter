@@ -33,9 +33,19 @@ class ConverterInteractor: ConverterBusinessLogic, ConverterDataStore
   func doExchangeRate(request: Converter.ExchangeRate.Request)
   {
     worker = ConverterWorker()
-    worker?.doExchangeRateWork()
+    worker?.doExchangeRateWork(request: request, success: { (status, response) in
+        
+        if let exchangeRateResponse = response as? Converter.ExchangeRate.Response {
+            
+            self.presenter?.presentExchangeRate(response: exchangeRateResponse)
+        }
+    }, fail: { (status, response) in
+        
+        if let exchangeRateResponse = response as? Converter.ExchangeRate.Response {
+            
+            self.presenter?.presentExchangeRate(response: exchangeRateResponse)
+        }
+    })
     
-    let response = Converter.ExchangeRate.Response()
-    presenter?.presentExchangeRate(response: response)
   }
 }

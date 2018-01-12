@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B7B778B54B126C1D07F592779C46F76F"
+               BlueprintIdentifier = "98B78DDEFA07FC7820FEF508DAAB6993"
                BuildableName = "Pods_CurrencyConverter.framework"
                BlueprintName = "Pods-CurrencyConverter"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B7B778B54B126C1D07F592779C46F76F"
+            BlueprintIdentifier = "98B78DDEFA07FC7820FEF508DAAB6993"
             BuildableName = "Pods_CurrencyConverter.framework"
             BlueprintName = "Pods-CurrencyConverter"
             ReferencedContainer = "container:Pods.xcodeproj">

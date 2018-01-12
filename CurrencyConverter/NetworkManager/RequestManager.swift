@@ -14,7 +14,7 @@ class RequestManager: NSObject {
     
     func fetchExchangeRate(request:Converter.ExchangeRate.Request, completion:@escaping CompletionHandler){
         if ApplicationDelegate.isNetworkAvailable{
-            RealAPI().postObject(request:request, genericResponse: Token.JWTToken.Response.self, completion:completion)
+            RealAPI().getObject(request:request, genericResponse: Converter.ExchangeRate.Response.self, completion:completion)
         }
         else{
             completion(false, Constants.kNoNetworkMessage)

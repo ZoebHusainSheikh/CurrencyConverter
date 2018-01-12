@@ -14,7 +14,37 @@ import UIKit
 
 class ConverterWorker
 {
-  func doExchangeRateWork()
-  {
-  }
+    func doExchangeRateWork(request:Converter.ExchangeRate.Request, success:@escaping(CompletionHandler), fail:@escaping(CompletionHandler))
+    {
+        //call network etc.
+        let manager = RequestManager()
+        
+        manager.fetchExchangeRate(request: request) { (status, response) in
+            self.handleResponse(success: success, fail: fail, status: status, response: response)
+        }
+        
+    }
+    
+    public func handleResponse(success:@escaping(CompletionHandler), fail:@escaping(CompletionHandler), status: Bool, response: Any?) {
+        var message:String = Constants.kErrorMessage
+        if status {
+            if let result = response as? Converter.ExchangeRate.Response {
+                success(true, result)
+                return
+            }
+        }
+        else {
+            if let result = response as? Converter.ExchangeRate.Response {
+                fail(false, result)
+                return
+            }
+            else
+            {
+                if let result = response as? String {
+                    message = result
+                }
+            }
+        }
+        fail(false, Converter.ExchangeRate.Response(message:message)!)
+    }
 }

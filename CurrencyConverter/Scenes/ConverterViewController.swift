@@ -89,9 +89,9 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
         
     }
   
-  func doExchangeRate()
+    func doExchangeRate(urlPath: String = "/latest")
   {
-    let request = Converter.ExchangeRate.Request()
+    let request = Converter.ExchangeRate.Request(urlPath: urlPath)
     interactor?.doExchangeRate(request: request)
   }
   

@@ -7,15 +7,20 @@
 //
 
 import UIKit
+import Reachability
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var isNetworkAvailable: Bool = true
+    let reachability = Reachability()!
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        setupNetworkMonitoring()
+
         return true
     }
 
@@ -39,6 +44,65 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    //MARK: - Public Methods
+    
+    public func isNetworkReachable() -> Bool {
+        return self.isNetworkAvailable
+    }
+    
+    func setupNetworkMonitoring() {
+        
+        reachability.whenReachable = { reachability in
+            // this is called on a background thread, but UI updates must
+            // be on the main thread, like this:
+            DispatchQueue.main.async {
+                if reachability.connection == .wifi  {
+                    print("Reachable via WiFi")
+                } else {
+                    print("Reachable via Cellular")
+                }
+                self.isNetworkAvailable = true
+            }
+        }
+        reachability.whenUnreachable = { reachability in
+            // this is called on a background thread, but UI updates must
+            // be on the main thread, like this:
+            DispatchQueue.main.async {
+                print("Not reachable")
+                
+                self.isNetworkAvailable = false
+            }
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged),name: Notification.Name.reachabilityChanged,object: reachability)
+        
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+        
+    }
+    
+    @objc func reachabilityChanged(note: Notification) {
+        
+        let reachability = note.object as! Reachability
+        
+        if reachability.connection != .none {
+            if reachability.connection == .wifi {
+                print("Reachable via WiFi")
+            } else {
+                print("Reachable via Cellular")
+            }
+            self.isNetworkAvailable = true
+            
+        } else {
+            print("Network not reachable")
+            self.isNetworkAvailable = false
+            
+        }
     }
 
 

@@ -18,9 +18,12 @@
 		18DF1AB92008823C0061835C /* ConverterWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF1AB32008823C0061835C /* ConverterWorker.swift */; };
 		459098F3C5A5B7B3E8DAA779 /* Pods_CurrencyConverter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD48ECA04CDAED4675E6100 /* Pods_CurrencyConverter.framework */; };
 		F17DBC062008DB8500161F1A /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17DBC022008DB8400161F1A /* RequestManager.swift */; };
-		F17DBC072008DB8500161F1A /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17DBC032008DB8400161F1A /* BaseRequest.swift */; };
 		F17DBC082008DB8500161F1A /* RealAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17DBC042008DB8400161F1A /* RealAPI.swift */; };
 		F17DBC092008DB8500161F1A /* NetworkHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17DBC052008DB8400161F1A /* NetworkHttpClient.swift */; };
+		F17DBC0D2008E0D900161F1A /* AppSettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17DBC0B2008E0D900161F1A /* AppSettingsManager.swift */; };
+		F17DBC0E2008E0D900161F1A /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17DBC0C2008E0D900161F1A /* AppSettings.swift */; };
+		F17DBC112008E0F600161F1A /* AppSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = F17DBC102008E0F600161F1A /* AppSettings.plist */; };
+		F17DBC142008E27600161F1A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17DBC132008E27600161F1A /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,9 +42,12 @@
 		93194F7E01C634786FB788DE /* Pods-CurrencyConverter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyConverter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CurrencyConverter/Pods-CurrencyConverter.debug.xcconfig"; sourceTree = "<group>"; };
 		ACD48ECA04CDAED4675E6100 /* Pods_CurrencyConverter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CurrencyConverter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F17DBC022008DB8400161F1A /* RequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
-		F17DBC032008DB8400161F1A /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		F17DBC042008DB8400161F1A /* RealAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealAPI.swift; sourceTree = "<group>"; };
 		F17DBC052008DB8400161F1A /* NetworkHttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHttpClient.swift; sourceTree = "<group>"; };
+		F17DBC0B2008E0D900161F1A /* AppSettingsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsManager.swift; sourceTree = "<group>"; };
+		F17DBC0C2008E0D900161F1A /* AppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		F17DBC102008E0F600161F1A /* AppSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AppSettings.plist; sourceTree = "<group>"; };
+		F17DBC132008E27600161F1A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,13 +83,16 @@
 		18DF1A9A200881960061835C /* CurrencyConverter */ = {
 			isa = PBXGroup;
 			children = (
-				18DF1A9B200881960061835C /* AppDelegate.swift */,
-				18DF1AAD200881AF0061835C /* Scenes */,
-				F17DBC012008DB8400161F1A /* NetworkManager */,
-				18DF1A9F200881960061835C /* Main.storyboard */,
-				18DF1AA2200881960061835C /* Assets.xcassets */,
-				18DF1AA4200881960061835C /* LaunchScreen.storyboard */,
+				F17DBC122008E26800161F1A /* Helpers */,
 				18DF1AA7200881960061835C /* Info.plist */,
+				18DF1A9B200881960061835C /* AppDelegate.swift */,
+				18DF1AA2200881960061835C /* Assets.xcassets */,
+				F17DBC0A2008E0BE00161F1A /* AppSettings */,
+				18DF1AA4200881960061835C /* LaunchScreen.storyboard */,
+				18DF1A9F200881960061835C /* Main.storyboard */,
+				F17DBC012008DB8400161F1A /* NetworkManager */,
+				F17DBC0F2008E0E200161F1A /* Resources */,
+				18DF1AAD200881AF0061835C /* Scenes */,
 			);
 			path = CurrencyConverter;
 			sourceTree = "<group>";
@@ -121,11 +130,35 @@
 			isa = PBXGroup;
 			children = (
 				F17DBC022008DB8400161F1A /* RequestManager.swift */,
-				F17DBC032008DB8400161F1A /* BaseRequest.swift */,
 				F17DBC042008DB8400161F1A /* RealAPI.swift */,
 				F17DBC052008DB8400161F1A /* NetworkHttpClient.swift */,
 			);
 			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		F17DBC0A2008E0BE00161F1A /* AppSettings */ = {
+			isa = PBXGroup;
+			children = (
+				F17DBC0C2008E0D900161F1A /* AppSettings.swift */,
+				F17DBC0B2008E0D900161F1A /* AppSettingsManager.swift */,
+			);
+			path = AppSettings;
+			sourceTree = "<group>";
+		};
+		F17DBC0F2008E0E200161F1A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F17DBC102008E0F600161F1A /* AppSettings.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F17DBC122008E26800161F1A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F17DBC132008E27600161F1A /* Constants.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18DF1AA6200881960061835C /* LaunchScreen.storyboard in Resources */,
+				F17DBC112008E0F600161F1A /* AppSettings.plist in Resources */,
 				18DF1AA3200881960061835C /* Assets.xcassets in Resources */,
 				18DF1AA1200881960061835C /* Main.storyboard in Resources */,
 			);
@@ -225,10 +259,22 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-CurrencyConverter/Pods-CurrencyConverter-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
+				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -257,16 +303,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F17DBC072008DB8500161F1A /* BaseRequest.swift in Sources */,
 				F17DBC092008DB8500161F1A /* NetworkHttpClient.swift in Sources */,
+				F17DBC0E2008E0D900161F1A /* AppSettings.swift in Sources */,
 				18DF1AB52008823C0061835C /* ConverterModels.swift in Sources */,
 				18DF1AB62008823C0061835C /* ConverterPresenter.swift in Sources */,
 				18DF1AB92008823C0061835C /* ConverterWorker.swift in Sources */,
 				18DF1AB42008823C0061835C /* ConverterInteractor.swift in Sources */,
+				F17DBC142008E27600161F1A /* Constants.swift in Sources */,
 				F17DBC062008DB8500161F1A /* RequestManager.swift in Sources */,
 				18DF1A9C200881960061835C /* AppDelegate.swift in Sources */,
 				18DF1AB82008823C0061835C /* ConverterViewController.swift in Sources */,
 				F17DBC082008DB8500161F1A /* RealAPI.swift in Sources */,
+				F17DBC0D2008E0D900161F1A /* AppSettingsManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
