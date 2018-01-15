@@ -11,13 +11,14 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 protocol ConverterDisplayLogic: class
 {
   func displayExchangeRate(response: Converter.ExchangeRate.Response)
 }
 
-class ConverterViewController: UIViewController, ConverterDisplayLogic
+class ConverterViewController: UIViewController, ConverterDisplayLogic, NVActivityIndicatorViewable
 {
     
     enum DatePickerSender {
@@ -92,6 +93,7 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
   
     func doExchangeRate(withBaseCurrency: String, urlPath: String = "/latest")
   {
+    startAnimating()
     let request = Converter.ExchangeRate.Request(urlPath: "\(urlPath)?base=\(withBaseCurrency)")
     interactor?.doExchangeRate(request: request)
   }
@@ -101,10 +103,16 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
         currencyData = response
         if shouldSwitchPrimaryAndSecondaryContent {
             primaryCurrencyValueToConvertLabel.text = secondaryCurrencyResultantValueLabel.text
-            let indexOfNewSecondaryCurrencyInNewList = Array(currencyData!.rates!.dictionaryRepresentation().keys).index(of: primaryCurrencyNameLabel.text!)
-            selectedRowForSecondaryCurrency = indexOfNewSecondaryCurrencyInNewList!
+
+            if currencyData?.rates != nil {
+                let indexOfNewSecondaryCurrencyInNewList = Array(currencyData!.rates!.dictionaryRepresentation().keys).index(of: primaryCurrencyNameLabel.text!)
+                selectedRowForSecondaryCurrency = indexOfNewSecondaryCurrencyInNewList ?? 0
+            } else {
+                selectedRowForSecondaryCurrency = 0
+            }
         }
         refreshData()
+        self.stopAnimating()
     }
     
     //MARK: - IBAction methods
@@ -204,7 +212,7 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
     }
     
     func refreshData() {
-        if currencyData == nil {
+        if currencyData?.rates == nil {
             return
         }
         

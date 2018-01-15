@@ -8,6 +8,7 @@
 
 import UIKit
 import Reachability
+import NVActivityIndicatorView
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         setupNetworkMonitoring()
+        
+        setupForLoader()
 
         return true
     }
@@ -47,6 +50,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     //MARK: - Public Methods
+    
+    func setupForLoader() {
+        NVActivityIndicatorView.DEFAULT_TYPE = .ballPulseSync
+        NVActivityIndicatorView.DEFAULT_BLOCKER_MESSAGE = "Loading.."
+    }
     
     public func isNetworkReachable() -> Bool {
         return self.isNetworkAvailable

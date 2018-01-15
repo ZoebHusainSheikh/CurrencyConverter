@@ -8,5 +8,5 @@ target 'CurrencyConverter' do
   pod 'AlamofireObjectMapper', '~> 5.0'
   pod 'ReachabilitySwift'
   pod 'NotificationBannerSwift'
-
+  pod 'NVActivityIndicatorView'
 end
