@@ -21,7 +21,7 @@ protocol ConverterDisplayLogic: class
 class ConverterViewController: UIViewController, ConverterDisplayLogic, NVActivityIndicatorViewable
 {
     
-    enum DatePickerSender {
+    enum PickerViewSender {
         case PrimaryCurrency
         case SecondaryCurrency
         case None
@@ -35,7 +35,7 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic, NVActivi
     var currencies = Array<String>()
     var currenciesRate = Array<Float>()
     var selectedRowForSecondaryCurrency: Int = -1
-    var datePickerSender: DatePickerSender = .None
+    var pickerViewSender: PickerViewSender = .None
     var shouldSwitchPrimaryAndSecondaryContent: Bool = false
 
   // MARK: Object lifecycle
@@ -90,11 +90,15 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic, NVActivi
     
     @IBOutlet weak var datePickerContainerVisualBlurView: UIView!
     @IBOutlet weak var pickerView: UIPickerView!
+    
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var datePickerContainerView: UIView!
+    @IBOutlet weak var datePickerContainerViewBottomConstaint: NSLayoutConstraint!
   
-    func doExchangeRate(withBaseCurrency: String, urlPath: String = "/latest")
+    func doExchangeRate(withBaseCurrency: String, dateString: String = "/latest")
   {
     startAnimating()
-    let request = Converter.ExchangeRate.Request(urlPath: "\(urlPath)?base=\(withBaseCurrency)")
+    let request = Converter.ExchangeRate.Request(urlPath: "/\(dateString)?base=\(withBaseCurrency)")
     interactor?.doExchangeRate(request: request)
   }
   
@@ -110,6 +114,7 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic, NVActivi
             } else {
                 selectedRowForSecondaryCurrency = 0
             }
+            shouldSwitchPrimaryAndSecondaryContent = false
         }
         refreshData()
         self.stopAnimating()
@@ -122,14 +127,14 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic, NVActivi
     }
     
     @IBAction func primaryCurrencyChangeTapped(button: UIButton) {
-        datePickerSender = .PrimaryCurrency
+        pickerViewSender = .PrimaryCurrency
         pickerView.reloadAllComponents()
         scrollPickerTo(currency: primaryCurrencyNameLabel.text!)
         showDatePickerView()
     }
     
     @IBAction func secondaryCurrencyChangeTapped(button: UIButton) {
-        datePickerSender = .SecondaryCurrency
+        pickerViewSender = .SecondaryCurrency
         scrollPickerTo(currency: secondaryCurrencyNameLabel.text!)
         pickerView.reloadAllComponents()
         showDatePickerView()
@@ -137,20 +142,56 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic, NVActivi
     
     @IBAction func applyButtonTapped() {
         hideDatePickerView()
-        if datePickerSender == .PrimaryCurrency {
+        if pickerViewSender == .PrimaryCurrency {
             doExchangeRate(withBaseCurrency: currencies[pickerView.selectedRow(inComponent: 0)])
         } else {
             selectedRowForSecondaryCurrency = pickerView.selectedRow(inComponent: 0)
             refreshData()
         }
-        datePickerSender = .None
+        pickerViewSender = .None
+    }
+    
+    @IBAction func conversionYearButtonTapped() {
+        openDatePicker()
+        
+    }
+    
+    @IBAction func cancelDatePickerButtonTapped() {
+        closeDatePicker()
+    }
+    
+    @IBAction func datePickerDoneButtonTapped() {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: datePicker.date)
+        
+        doExchangeRate(withBaseCurrency: primaryCurrencyNameLabel.text!, dateString: dateString)
+        
+        closeDatePicker()
     }
     
     //MARK: - Private methods
     
+    func closeDatePicker() {
+        datePickerContainerViewBottomConstaint.constant = -datePickerContainerView.bounds.size.height
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func openDatePicker() {
+        datePickerContainerViewBottomConstaint.constant = 0
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
     private func initialSetup() {
         hideDatePickerView()
         self.view.bringSubview(toFront: datePickerContainerVisualBlurView)
+        
+        datePicker.maximumDate = Date()
     }
     
     private func doActionFor(inputValue: Int) {
@@ -254,7 +295,7 @@ extension ConverterViewController: UIPickerViewDelegate, UIPickerViewDataSource 
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if datePickerSender == .PrimaryCurrency {
+        if pickerViewSender == .PrimaryCurrency {
             return currencies[row]
         } else {
             return "\(currencies[row]) - \(currenciesRate[row])"

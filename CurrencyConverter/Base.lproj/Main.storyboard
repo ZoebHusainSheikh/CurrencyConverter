@@ -254,16 +254,26 @@
                                                 <color key="textColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rNH-93-tDy">
+                                                <rect key="frame" x="0.0" y="0.0" width="226" height="30"/>
+                                                <connections>
+                                                    <action selector="conversionYearButtonTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="REL-k9-EKu"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="ZjR-0p-0al" firstAttribute="top" secondItem="DrI-GT-xiL" secondAttribute="top" id="0RS-au-Ktf"/>
+                                            <constraint firstAttribute="bottom" secondItem="rNH-93-tDy" secondAttribute="bottom" id="4mQ-ad-tyk"/>
                                             <constraint firstAttribute="bottom" secondItem="ZjR-0p-0al" secondAttribute="bottom" id="7pa-Nr-4fc"/>
                                             <constraint firstAttribute="bottom" secondItem="LVk-TQ-N6K" secondAttribute="bottom" id="88d-hh-CWa"/>
+                                            <constraint firstAttribute="trailing" secondItem="rNH-93-tDy" secondAttribute="trailing" id="ADE-Ku-dik"/>
                                             <constraint firstAttribute="trailing" secondItem="ZjR-0p-0al" secondAttribute="trailing" id="FLF-2Y-ysO"/>
                                             <constraint firstItem="ZjR-0p-0al" firstAttribute="leading" secondItem="LVk-TQ-N6K" secondAttribute="trailing" id="J8f-Uz-qLc"/>
+                                            <constraint firstItem="rNH-93-tDy" firstAttribute="top" secondItem="DrI-GT-xiL" secondAttribute="top" id="eNg-KN-nLG"/>
                                             <constraint firstItem="LVk-TQ-N6K" firstAttribute="top" secondItem="DrI-GT-xiL" secondAttribute="top" id="inc-R7-cZH"/>
                                             <constraint firstItem="LVk-TQ-N6K" firstAttribute="leading" secondItem="DrI-GT-xiL" secondAttribute="leading" id="ly9-Jf-Ebo"/>
+                                            <constraint firstItem="rNH-93-tDy" firstAttribute="leading" secondItem="DrI-GT-xiL" secondAttribute="leading" id="qGg-YF-5Ye"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -723,14 +733,58 @@
                                     <constraint firstAttribute="trailing" secondItem="pOc-SM-dIF" secondAttribute="trailing" id="szX-XD-u30"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vdW-qb-6TG">
+                                <rect key="frame" x="0.0" y="667" width="375" height="250"/>
+                                <subviews>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QVF-Qm-tkD">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="34"/>
+                                        <items>
+                                            <barButtonItem title="Cancel" id="AlI-Tx-ZnC">
+                                                <connections>
+                                                    <action selector="cancelDatePickerButtonTapped" destination="BYZ-38-t0r" id="TbL-mV-j3j"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="1Xm-KG-uvw"/>
+                                            <barButtonItem title="Done" id="Iqm-24-XBi">
+                                                <connections>
+                                                    <action selector="datePickerDoneButtonTapped" destination="BYZ-38-t0r" id="FZP-BA-jG8"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </items>
+                                    </toolbar>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="th0-JE-bI7">
+                                        <rect key="frame" x="0.0" y="34" width="375" height="216"/>
+                                        <date key="date" timeIntervalSinceReferenceDate="537709593.80588901">
+                                            <!--2018-01-15 11:46:33 +0000-->
+                                        </date>
+                                        <date key="minimumDate" timeIntervalSinceReferenceDate="-63120600">
+                                            <!--1999-01-01 10:30:00 +0000-->
+                                        </date>
+                                    </datePicker>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="th0-JE-bI7" firstAttribute="leading" secondItem="vdW-qb-6TG" secondAttribute="leading" id="0dy-Hx-V0x"/>
+                                    <constraint firstAttribute="bottom" secondItem="th0-JE-bI7" secondAttribute="bottom" id="7dX-JL-TgU"/>
+                                    <constraint firstItem="QVF-Qm-tkD" firstAttribute="top" secondItem="vdW-qb-6TG" secondAttribute="top" id="Pfh-Pm-p86"/>
+                                    <constraint firstAttribute="trailing" secondItem="QVF-Qm-tkD" secondAttribute="trailing" id="Y0x-rZ-sTR"/>
+                                    <constraint firstItem="th0-JE-bI7" firstAttribute="top" secondItem="QVF-Qm-tkD" secondAttribute="bottom" id="bQ5-15-sjP"/>
+                                    <constraint firstAttribute="trailing" secondItem="th0-JE-bI7" secondAttribute="trailing" id="dVJ-5J-nMU"/>
+                                    <constraint firstItem="QVF-Qm-tkD" firstAttribute="leading" secondItem="vdW-qb-6TG" secondAttribute="leading" id="tFo-N5-eQ5"/>
+                                    <constraint firstAttribute="height" constant="250" id="uE2-HH-1WY"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="vdW-qb-6TG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5Ox-uZ-MiQ"/>
                             <constraint firstItem="SzS-vJ-gXo" firstAttribute="top" secondItem="5Vt-1K-IBL" secondAttribute="bottom" id="9Qy-7w-fNh"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vdW-qb-6TG" secondAttribute="trailing" id="ZQJ-Pr-zzP"/>
                             <constraint firstItem="mNf-8g-EPv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="eEo-2y-q4A"/>
                             <constraint firstItem="5Vt-1K-IBL" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="eXt-GO-sp6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="SzS-vJ-gXo" secondAttribute="bottom" id="gU5-vu-Sa2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mNf-8g-EPv" secondAttribute="trailing" id="opV-Tx-UIF"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="vdW-qb-6TG" secondAttribute="bottom" constant="-250" id="ozr-GE-5ey"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5Vt-1K-IBL" secondAttribute="trailing" id="qWU-rO-eLk"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="mNf-8g-EPv" secondAttribute="bottom" id="sCN-p6-XtK"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SzS-vJ-gXo" secondAttribute="trailing" id="ta7-yy-Da6"/>
@@ -742,6 +796,9 @@
                     </view>
                     <connections>
                         <outlet property="currencyRatesComparisionYearLabel" destination="ZjR-0p-0al" id="cEX-2B-qHP"/>
+                        <outlet property="datePicker" destination="th0-JE-bI7" id="YZ9-eF-nqg"/>
+                        <outlet property="datePickerContainerView" destination="vdW-qb-6TG" id="4OS-hq-Wmn"/>
+                        <outlet property="datePickerContainerViewBottomConstaint" destination="ozr-GE-5ey" id="L1e-T9-Uap"/>
                         <outlet property="datePickerContainerVisualBlurView" destination="mNf-8g-EPv" id="ZPS-Ya-fPw"/>
                         <outlet property="pickerView" destination="Uui-zp-ra7" id="InK-id-23S"/>
                         <outlet property="primaryCurrencyNameLabel" destination="YBN-Or-ocy" id="nkg-9O-kyM"/>
