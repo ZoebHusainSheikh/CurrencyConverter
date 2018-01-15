@@ -19,14 +19,23 @@ protocol ConverterDisplayLogic: class
 
 class ConverterViewController: UIViewController, ConverterDisplayLogic
 {
+    
+    enum DatePickerSender {
+        case PrimaryCurrency
+        case SecondaryCurrency
+        case None
+    }
+    
   var interactor: ConverterBusinessLogic?
     
     var secondaryCurrencyBaseValue: Float = 0
     
     var currencyData: Converter.ExchangeRate.Response?
-    var selectedRatesIndex: Int = -1
     var currencies = Array<String>()
     var currenciesRate = Array<Float>()
+    var selectedRowForSecondaryCurrency: Int = -1
+    var datePickerSender: DatePickerSender = .None
+    var shouldSwitchPrimaryAndSecondaryContent: Bool = false
 
   // MARK: Object lifecycle
   
@@ -63,7 +72,7 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
     initialSetup()
     
     //API
-    doExchangeRate()
+    doExchangeRate(withBaseCurrency: "EUR")
   }
     
     @IBOutlet weak var primaryCurrencyShortNameLabel: UILabel!
@@ -81,15 +90,20 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
     @IBOutlet weak var datePickerContainerVisualBlurView: UIView!
     @IBOutlet weak var pickerView: UIPickerView!
   
-    func doExchangeRate(urlPath: String = "/latest")
+    func doExchangeRate(withBaseCurrency: String, urlPath: String = "/latest")
   {
-    let request = Converter.ExchangeRate.Request(urlPath: urlPath)
+    let request = Converter.ExchangeRate.Request(urlPath: "\(urlPath)?base=\(withBaseCurrency)")
     interactor?.doExchangeRate(request: request)
   }
   
     func displayExchangeRate(response: Converter.ExchangeRate.Response)
     {
         currencyData = response
+        if shouldSwitchPrimaryAndSecondaryContent {
+            primaryCurrencyValueToConvertLabel.text = secondaryCurrencyResultantValueLabel.text
+            let indexOfNewSecondaryCurrencyInNewList = Array(currencyData!.rates!.dictionaryRepresentation().keys).index(of: primaryCurrencyNameLabel.text!)
+            selectedRowForSecondaryCurrency = indexOfNewSecondaryCurrencyInNewList!
+        }
         refreshData()
     }
     
@@ -100,17 +114,28 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
     }
     
     @IBAction func primaryCurrencyChangeTapped(button: UIButton) {
-        
+        datePickerSender = .PrimaryCurrency
+        pickerView.reloadAllComponents()
+        scrollPickerTo(currency: primaryCurrencyNameLabel.text!)
+        showDatePickerView()
     }
     
     @IBAction func secondaryCurrencyChangeTapped(button: UIButton) {
+        datePickerSender = .SecondaryCurrency
+        scrollPickerTo(currency: secondaryCurrencyNameLabel.text!)
         pickerView.reloadAllComponents()
         showDatePickerView()
     }
     
     @IBAction func applyButtonTapped() {
         hideDatePickerView()
-        refreshData()
+        if datePickerSender == .PrimaryCurrency {
+            doExchangeRate(withBaseCurrency: currencies[pickerView.selectedRow(inComponent: 0)])
+        } else {
+            selectedRowForSecondaryCurrency = pickerView.selectedRow(inComponent: 0)
+            refreshData()
+        }
+        datePickerSender = .None
     }
     
     //MARK: - Private methods
@@ -157,7 +182,8 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
     }
     
     private func makeChangesForSwitch() {
-        
+        shouldSwitchPrimaryAndSecondaryContent = true
+        doExchangeRate(withBaseCurrency: secondaryCurrencyNameLabel.text!)
     }
     
     private func showDatePickerView() {
@@ -185,14 +211,14 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
         currencies = Array(currencyData!.rates!.dictionaryRepresentation().keys)
         currenciesRate = Array(currencyData!.rates!.dictionaryRepresentation().values) as! [Float]
         
-        let index = pickerView.selectedRow(inComponent: 0)
-        secondaryCurrencyBaseValue = currenciesRate[index]
-        
         primaryCurrencyNameLabel.text = currencyData?.base
         primaryCurrencyShortNameLabel.text = currencyData?.base
         
-        secondaryCurrencyNameLabel.text = currencies[index]
-        secondaryCurrencyShortNameLabel.text = currencies[index]
+        if selectedRowForSecondaryCurrency != -1 {
+            secondaryCurrencyBaseValue = currenciesRate[selectedRowForSecondaryCurrency]
+            secondaryCurrencyNameLabel.text = currencies[selectedRowForSecondaryCurrency]
+            secondaryCurrencyShortNameLabel.text = currencies[selectedRowForSecondaryCurrency]
+        }
         
         currencyRatesComparisionYearLabel.text = currencyData?.date
         secondaryCurrencyValueLabel.text = "\(secondaryCurrencyBaseValue)"
@@ -200,6 +226,11 @@ class ConverterViewController: UIViewController, ConverterDisplayLogic
         refreshSecondaryCurrencyResultant()
         
         pickerView.reloadAllComponents()
+    }
+    
+    func scrollPickerTo(currency: String) {
+        let index = currencies.index(of: currency) ?? 0
+        pickerView.selectRow(index, inComponent: 0, animated: false)
     }
 
 }
@@ -215,7 +246,11 @@ extension ConverterViewController: UIPickerViewDelegate, UIPickerViewDataSource 
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "\(currencies[row]) - \(currenciesRate[row])"
+        if datePickerSender == .PrimaryCurrency {
+            return currencies[row]
+        } else {
+            return "\(currencies[row]) - \(currenciesRate[row])"
+        }
         
     }
     

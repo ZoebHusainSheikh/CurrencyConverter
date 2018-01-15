@@ -137,37 +137,37 @@ enum Converter
         }
         
         // MARK: Properties
-        public var rON: Float?
-        public var mYR: Float?
-        public var cAD: Float?
-        public var dKK: Float?
-        public var gBP: Float?
-        public var pHP: Float?
-        public var cZK: Float?
-        public var pLN: Float?
-        public var rUB: Float?
-        public var sGD: Float?
-        public var bRL: Float?
-        public var jPY: Float?
-        public var sEK: Float?
-        public var uSD: Float?
-        public var hRK: Float?
-        public var nZD: Float?
-        public var hKD: Float?
-        public var bGN: Float?
-        public var tRY: Float?
-        public var mXN: Float?
-        public var hUF: Float?
-        public var kRW: Float?
-        public var nOK: Float?
-        public var iNR: Float?
-        public var iLS: Float?
-        public var iDR: Float?
-        public var cHF: Float?
-        public var tHB: Float?
-        public var cNY: Float?
-        public var zAR: Float?
-        public var aUD: Float?
+        public var rON: Float? = 1
+        public var mYR: Float? = 1
+        public var cAD: Float? = 1
+        public var dKK: Float? = 1
+        public var gBP: Float? = 1
+        public var pHP: Float? = 1
+        public var cZK: Float? = 1
+        public var pLN: Float? = 1
+        public var rUB: Float? = 1
+        public var sGD: Float? = 1
+        public var bRL: Float? = 1
+        public var jPY: Float? = 1
+        public var sEK: Float? = 1
+        public var uSD: Float? = 1
+        public var hRK: Float? = 1
+        public var nZD: Float? = 1
+        public var hKD: Float? = 1
+        public var bGN: Float? = 1
+        public var tRY: Float? = 1
+        public var mXN: Float? = 1
+        public var hUF: Float? = 1
+        public var kRW: Float? = 1
+        public var nOK: Float? = 1
+        public var iNR: Float? = 1
+        public var iLS: Float? = 1
+        public var iDR: Float? = 1
+        public var cHF: Float? = 1
+        public var tHB: Float? = 1
+        public var cNY: Float? = 1
+        public var zAR: Float? = 1
+        public var aUD: Float? = 1
         
         // MARK: ObjectMapper Initializers
         /// Map a JSON object to this class using ObjectMapper.
