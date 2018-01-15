@@ -240,22 +240,22 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DrI-GT-xiL" userLabel="YearView">
-                                        <rect key="frame" x="75" y="241" width="226" height="30"/>
+                                        <rect key="frame" x="75.5" y="241" width="225" height="30"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Current conversion year:  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVk-TQ-N6K">
-                                                <rect key="frame" x="0.0" y="0.0" width="219" height="30"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Current conversion time:  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVk-TQ-N6K">
+                                                <rect key="frame" x="0.0" y="0.0" width="218" height="30"/>
                                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="19"/>
                                                 <color key="textColor" red="0.39215686274509803" green="0.39215686274509803" blue="0.39215686274509803" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZjR-0p-0al">
-                                                <rect key="frame" x="219" y="0.0" width="7" height="30"/>
+                                                <rect key="frame" x="218" y="0.0" width="7" height="30"/>
                                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="21"/>
                                                 <color key="textColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rNH-93-tDy">
-                                                <rect key="frame" x="0.0" y="0.0" width="226" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="225" height="30"/>
                                                 <connections>
                                                     <action selector="conversionYearButtonTapped" destination="BYZ-38-t0r" eventType="touchUpInside" id="REL-k9-EKu"/>
                                                 </connections>
