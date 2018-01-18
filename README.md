@@ -1,6 +1,6 @@
 # CurrencyConverter
 ## Used Clean(VIP) Architecture
-## Portrait and Landscape support using Size Classs
+## Portrait and Landscape support using Size Class
 
 ### Portrait Mode
 <p align="center">
